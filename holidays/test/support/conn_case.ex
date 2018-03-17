@@ -20,6 +20,7 @@ defmodule HolidaysWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       import HolidaysWeb.Router.Helpers
+      import Holidays.Factory
 
       # The default endpoint for testing
       @endpoint HolidaysWeb.Endpoint

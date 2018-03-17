@@ -1,20 +1,11 @@
 defmodule HolidaysWeb.BandControllerTest do
   use HolidaysWeb.ConnCase
 
-  alias Holidays.{Repo, Bands}
+  alias Holidays.Repo
   alias Holidays.Bands.Band
 
-  @create_attrs %{description: "some description", name: "some name"}
-  @update_attrs %{description: "some updated description", name: "some updated name"}
-  @invalid_attrs %{description: nil, name: nil}
-
-  def fixture(:band) do
-    {:ok, band} = Bands.create_band(@create_attrs)
-    band
-  end
-
   describe "index" do
-    test "lists all bands", %{conn: conn} do
+    test "lists bands", %{conn: conn} do
       conn = get conn, band_path(conn, :index)
       assert html_response(conn, 200) =~ "Bands"
     end
@@ -29,15 +20,17 @@ defmodule HolidaysWeb.BandControllerTest do
 
   describe "create band" do
     test "redirects to index when data is valid", %{conn: conn} do
-      conn = post conn, band_path(conn, :create), band: @create_attrs
+      attrs = params_for(:band)
+
+      conn = post conn, band_path(conn, :create), band: attrs
       assert redirected_to(conn) == band_path(conn, :index)
 
       conn = get conn, band_path(conn, :index)
-      assert html_response(conn, 200) =~ @create_attrs.name
+      assert html_response(conn, 200) =~ attrs.name
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, band_path(conn, :create), band: @invalid_attrs
+      conn = post conn, band_path(conn, :create), band: %{name: nil}
       assert html_response(conn, 200) =~ "New Band"
     end
   end
@@ -55,15 +48,15 @@ defmodule HolidaysWeb.BandControllerTest do
     setup [:create_band]
 
     test "redirects when data is valid", %{conn: conn, band: band} do
-      conn = put conn, band_path(conn, :update, band), band: @update_attrs
+      conn = put conn, band_path(conn, :update, band), band: %{name: "new name"}
       assert redirected_to(conn) == band_path(conn, :index)
 
       conn = get conn, band_path(conn, :index)
-      assert html_response(conn, 200) =~ @update_attrs.name
+      assert html_response(conn, 200) =~ "new name"
     end
 
     test "renders errors when data is invalid", %{conn: conn, band: band} do
-      conn = put conn, band_path(conn, :update, band), band: @invalid_attrs
+      conn = put conn, band_path(conn, :update, band), band: %{name: nil}
       assert html_response(conn, 200) =~ "Edit Band"
     end
   end
@@ -79,7 +72,6 @@ defmodule HolidaysWeb.BandControllerTest do
   end
 
   defp create_band(_) do
-    band = fixture(:band)
-    {:ok, band: band}
+    {:ok, band: insert(:band)}
   end
 end

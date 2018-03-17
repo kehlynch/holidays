@@ -18,7 +18,7 @@
   </div>
 
   <div class="form-group">                                                                                                                         
-    <%= label f, :band, class: "control-label" %>
+    <%= label f, :band_id, class: "control-label" %>
     <%= select f, :band_id, @bands, class: "form-control"%>
     <%= error_tag f, :band_id %>
   </div>

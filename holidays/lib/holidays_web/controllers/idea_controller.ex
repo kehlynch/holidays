@@ -59,7 +59,7 @@ defmodule HolidaysWeb.IdeaController do
   end
 
   def get_bands() do
-    Bands.list_bands
+    Bands.list_bands()
     |> Enum.map(&{"#{&1.name} - #{&1.description}", &1.id})
   end
 end

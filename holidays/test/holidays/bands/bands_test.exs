@@ -2,65 +2,62 @@ defmodule Holidays.BandsTest do
   use Holidays.DataCase
 
   alias Holidays.Bands
+  alias Holidays.Bands.Band
 
-  describe "bands" do
-    alias Holidays.Bands.Band
-
-    @valid_attrs %{description: "some description", name: "some name"}
-    @update_attrs %{description: "some updated description", name: "some updated name"}
-    @invalid_attrs %{description: nil, name: nil}
-
-    def band_fixture(attrs \\ %{}) do
-      {:ok, band} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Bands.create_band()
-
-      band
+  describe "list_bands/0" do
+    test "returns all bands" do
+      insert_list(3, :band)
+      assert length(Bands.list_bands()) == 3
     end
+  end
 
-    test "list_bands/0 returns all bands" do
-      band = band_fixture()
-      assert Bands.list_bands() == [band]
-    end
-
-    test "get_band!/1 returns the band with given id" do
-      band = band_fixture()
+  describe "get_band!/1" do
+    test "returns the band with given id" do
+      band = insert(:band)
       assert Bands.get_band!(band.id) == band
     end
+  end
 
-    test "create_band/1 with valid data creates a band" do
-      assert {:ok, %Band{} = band} = Bands.create_band(@valid_attrs)
-      assert band.description == "some description"
-      assert band.name == "some name"
+  describe "create_band/1" do
+    test "with valid data creates a band" do
+      attrs = params_for(:band)
+      assert {:ok, %Band{} = band} = Bands.create_band(attrs)
+      assert band.description == attrs.description
+      assert band.name == attrs.name
     end
 
-    test "create_band/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Bands.create_band(@invalid_attrs)
+    test "with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Bands.create_band(%{name: nil})
     end
+  end
 
-    test "update_band/2 with valid data updates the band" do
-      band = band_fixture()
-      assert {:ok, band} = Bands.update_band(band, @update_attrs)
+  describe "update_band/2" do
+    test "with valid data updates the band" do
+      band = insert(:band)
+      assert {:ok, band} = Bands.update_band(band, %{name: "new name", description: "new description"})
       assert %Band{} = band
-      assert band.description == "some updated description"
-      assert band.name == "some updated name"
+      assert band.name == "new name"
+      assert band.description == "new description"
     end
 
-    test "update_band/2 with invalid data returns error changeset" do
-      band = band_fixture()
-      assert {:error, %Ecto.Changeset{}} = Bands.update_band(band, @invalid_attrs)
+    test "with invalid data returns error changeset" do
+      band = insert(:band)
+      assert {:error, %Ecto.Changeset{}} = Bands.update_band(band, %{name: nil})
       assert band == Bands.get_band!(band.id)
     end
+  end
 
-    test "delete_band/1 deletes the band" do
-      band = band_fixture()
+  describe "delete_band/1" do
+    test "deletes the band" do
+      band = insert(:band)
       assert {:ok, %Band{}} = Bands.delete_band(band)
       assert_raise Ecto.NoResultsError, fn -> Bands.get_band!(band.id) end
     end
+  end
 
-    test "change_band/1 returns a band changeset" do
-      band = band_fixture()
+  describe "change_band/1" do
+    test "returns a band changeset" do
+      band = insert(:band)
       assert %Ecto.Changeset{} = Bands.change_band(band)
     end
   end

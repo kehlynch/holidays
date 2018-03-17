@@ -2,65 +2,60 @@ defmodule Holidays.IdeasTest do
   use Holidays.DataCase
 
   alias Holidays.Ideas
+  alias Holidays.Ideas.Idea
 
-  describe "ideas" do
-    alias Holidays.Ideas.Idea
-
-    @valid_attrs %{description: "some description", name: "some name"}
-    @update_attrs %{description: "some updated description", name: "some updated name"}
-    @invalid_attrs %{description: nil, name: nil}
-
-    def idea_fixture(attrs \\ %{}) do
-      {:ok, idea} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Ideas.create_idea()
-
-      idea
+  describe "list_ideas/0" do
+    test "returns all ideas" do
+      insert_list(3, :idea)
+      assert length(Ideas.list_ideas()) == 3
     end
+  end
 
-    test "list_ideas/0 returns all ideas" do
-      idea = idea_fixture()
-      assert Ideas.list_ideas() == [idea]
-    end
-
-    test "get_idea!/1 returns the idea with given id" do
-      idea = idea_fixture()
+  describe "get_idea!/1" do
+    test "returns the idea with given id" do
+      idea = insert(:idea)
       assert Ideas.get_idea!(idea.id) == idea
     end
+  end
 
-    test "create_idea/1 with valid data creates a idea" do
-      assert {:ok, %Idea{} = idea} = Ideas.create_idea(@valid_attrs)
-      assert idea.description == "some description"
-      assert idea.name == "some name"
+  describe "create_idea/1" do
+    test "with valid data creates a idea" do
+      attrs = params_with_assocs(:idea)
+      assert {:ok, %Idea{} = idea} = Ideas.create_idea(attrs)
+      assert idea.description == attrs.description
+      assert idea.name == attrs.name
     end
 
-    test "create_idea/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Ideas.create_idea(@invalid_attrs)
+    test "with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Ideas.create_idea(%{})
+    end
+  end
+
+  describe "update_idea/2" do
+    test "with valid data updates the idea" do
+      idea = insert(:idea)
+      assert {:ok, %Idea{} = idea} = Ideas.update_idea(idea, %{name: "new name"})
+      assert idea.name == "new name"
     end
 
-    test "update_idea/2 with valid data updates the idea" do
-      idea = idea_fixture()
-      assert {:ok, idea} = Ideas.update_idea(idea, @update_attrs)
-      assert %Idea{} = idea
-      assert idea.description == "some updated description"
-      assert idea.name == "some updated name"
+    test "with invalid data returns error changeset" do
+      idea = insert(:idea)
+      assert {:error, %Ecto.Changeset{}} = Ideas.update_idea(idea, %{name: nil})
+      assert idea.name == Ideas.get_idea!(idea.id).name
     end
+  end
 
-    test "update_idea/2 with invalid data returns error changeset" do
-      idea = idea_fixture()
-      assert {:error, %Ecto.Changeset{}} = Ideas.update_idea(idea, @invalid_attrs)
-      assert idea == Ideas.get_idea!(idea.id)
-    end
-
-    test "delete_idea/1 deletes the idea" do
-      idea = idea_fixture()
+  describe "delete_idea/1" do
+    test "deletes the idea" do
+      idea = insert(:idea)
       assert {:ok, %Idea{}} = Ideas.delete_idea(idea)
       assert_raise Ecto.NoResultsError, fn -> Ideas.get_idea!(idea.id) end
     end
+  end
 
-    test "change_idea/1 returns a idea changeset" do
-      idea = idea_fixture()
+  describe "change_idea/1" do
+    test "returns a idea changeset" do
+      idea = insert(:idea)
       assert %Ecto.Changeset{} = Ideas.change_idea(idea)
     end
   end

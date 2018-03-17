@@ -8,7 +8,7 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Bad</th>
+      <th>Band</th>
 
       <th></th>
     </tr>
@@ -29,5 +29,3 @@
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New Idea", to: idea_path(@conn, :new) %></span>
