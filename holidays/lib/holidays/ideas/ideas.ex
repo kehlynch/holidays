@@ -7,6 +7,11 @@ defmodule Holidays.Ideas do
   def list_ideas do
     Repo.all(Idea)
     |> Repo.preload([:band, :suggester, :season])
+    |> Enum.sort_by(&({
+        &1.band.name,
+        &1.season && &1.season.name,
+        &1.suggester && &1.suggester.name
+    }))
   end
 
   def get_idea!(id) do
