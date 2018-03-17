@@ -18,6 +18,7 @@ defmodule HolidaysWeb.Router do
 
     get "/", PageController, :index
     resources "/bands", BandController, except: [:show]
+    resources "/ideas", IdeaController
   end
 
   # Other scopes may use custom stacks.

@@ -35,7 +35,7 @@ defmodule HolidaysWeb.BandController do
     band = Bands.get_band!(id)
 
     case Bands.update_band(band, band_params) do
-      {:ok, band} ->
+      {:ok, _band} ->
         conn
         |> put_flash(:info, "Band updated successfully.")
         |> redirect(to: band_path(conn, :index))
