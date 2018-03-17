@@ -1,0 +1,24 @@
+version: '3'
+services:
+
+  holidays:
+    build:
+      context: ./holidays
+      dockerfile: Dockerfile
+    volumes:
+      - ./holidays:/code
+    ports:
+      - 4000:4000
+    tty: true
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    env_file: ./holidays/.env
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432

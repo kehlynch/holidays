@@ -1,0 +1,57 @@
+/* This file is for your main application css. */
+.logo {
+  width: 120px;
+  height: 72px;
+  display: inline-block;
+  background-image: url("/images/logo.png");
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.heading-text {
+  padding-left: 20px;
+  font-size: 28px;
+  color: #2d363f;
+  font-weight: 700;
+}
+
+.logo-container:hover, .logo-container:focus {
+  text-decoration: none;
+}
+
+nav {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  margin-top: 20px;
+}
+
+nav ul {
+  margin-top: 0;
+}
+
+.nav-pills li a {
+  font-size: 28px;
+  color: #2d363f;
+}
+
+.nav-pills li a:hover, .nav-pills li a:focus {
+  text-decoration: none;
+}
+
+.page-heading-container {
+  display: flex;
+  align-items: center;
+}
+
+.page-heading {
+  flex: 1;
+
+}
+
+
