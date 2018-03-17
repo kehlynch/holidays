@@ -25,7 +25,7 @@
 
   <div class="form-group">
     <%= label f, :season_id, class: "control-label" %>
-    <%= select f, :sesason_id, @seasons, class: "form-control"%>
+    <%= select f, :season_id, @seasons, class: "form-control"%>
     <%= error_tag f, :season_id %>
   </div>
 

@@ -6,7 +6,7 @@ defmodule Holidays.Ideas do
 
   def list_ideas do
     Repo.all(Idea)
-    |> Repo.preload([:band])
+    |> Repo.preload([:band, :suggester, :season])
   end
 
   def get_idea!(id) do

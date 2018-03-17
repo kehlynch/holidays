@@ -9,6 +9,8 @@
       <th>Name</th>
       <th>Description</th>
       <th>Band</th>
+      <th>Suggester</th>
+      <th>Season</th>
 
       <th></th>
     </tr>
@@ -19,6 +21,8 @@
       <td><%= idea.name %></td>
       <td><%= idea.description %></td>
       <td><%= idea.band.name %></td>
+      <td><%= idea.suggester && idea.suggester.name %></td>
+      <td><%= idea.season && idea.season.name %></td>
 
       <td class="text-right">
         <span><%= link "Show", to: idea_path(@conn, :show, idea), class: "btn btn-default btn-xs" %></span>
