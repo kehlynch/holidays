@@ -21,7 +21,7 @@ defmodule Holidays.Ideas.Idea do
   def changeset(idea, attrs) do
     idea
     |> cast(attrs, [:name, :description, :band_id, :season_id, :suggester_id])
-    |> validate_required([:name, :band_id])
+    |> validate_required([:name])
     |> foreign_key_constraint(:band_id)
     |> foreign_key_constraint(:season_id)
     |> foreign_key_constraint(:suggester_id)

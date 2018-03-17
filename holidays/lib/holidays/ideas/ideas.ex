@@ -8,9 +8,10 @@ defmodule Holidays.Ideas do
     Repo.all(Idea)
     |> Repo.preload([:band, :suggester, :season])
     |> Enum.sort_by(&({
-        &1.band.name,
+        &1.band && &1.band.name,
         &1.season && &1.season.name,
-        &1.suggester && &1.suggester.name
+        &1.suggester && &1.suggester.name,
+        &1.name
     }))
   end
 
