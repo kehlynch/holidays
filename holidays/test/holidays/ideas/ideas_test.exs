@@ -14,7 +14,7 @@ defmodule Holidays.IdeasTest do
   describe "get_idea!/1" do
     test "returns the idea with given id" do
       idea = insert(:idea)
-      assert Ideas.get_idea!(idea.id) == idea
+      assert Ideas.get_idea!(idea.id) == correct_preload_level(idea)
     end
   end
 
@@ -58,5 +58,10 @@ defmodule Holidays.IdeasTest do
       idea = insert(:idea)
       assert %Ecto.Changeset{} = Ideas.change_idea(idea)
     end
+  end
+
+  defp correct_preload_level(%Idea{} = idea) do
+    Repo.get!(Idea, idea.id)
+    |> Repo.preload([:band, :suggester, :season])
   end
 end

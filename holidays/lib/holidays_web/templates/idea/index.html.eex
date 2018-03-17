@@ -7,7 +7,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
       <th>Band</th>
       <th>Suggester</th>
       <th>Season</th>
@@ -19,7 +18,6 @@
 <%= for idea <- @ideas do %>
     <tr>
       <td><%= idea.name %></td>
-      <td><%= idea.description %></td>
       <td><%= idea.band && idea.band.name %></td>
       <td><%= idea.suggester && idea.suggester.name %></td>
       <td><%= idea.season && idea.season.name %></td>

@@ -7,10 +7,33 @@
     <%= @idea.name %>
   </li>
 
-  <li>
-    <strong>Description:</strong>
-    <%= @idea.description %>
-  </li>
+  <%= if @idea.description do %>
+    <li>
+      <strong>Description:</strong>
+      <%= @idea.description %>
+    </li>
+  <% end %>
+
+  <%= if @idea.band do %>
+    <li>
+      <strong>Band:</strong>
+      <%= band_text(@idea.band) %>
+    </li>
+  <% end %>
+
+  <%= if @idea.season do %>
+    <li>
+      <strong>Season:</strong>
+      <%= season_text(@idea.season) %>
+    </li>
+  <% end %>
+
+  <%= if @idea.suggester do %>
+    <li>
+      <strong>Suggester:</strong>
+      <%= @idea.suggester.name %>
+    </li>
+  <% end %>
 
 </ul>
 

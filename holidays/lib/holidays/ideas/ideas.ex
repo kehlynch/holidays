@@ -17,7 +17,7 @@ defmodule Holidays.Ideas do
 
   def get_idea!(id) do
     Repo.get!(Idea, id)
-    |> Repo.preload([:band])
+    |> Repo.preload([:band, :suggester, :season])
   end
 
   def create_idea(attrs \\ %{}) do
