@@ -3,6 +3,7 @@ defmodule HolidaysWeb.IdeaController do
 
   alias Holidays.{Bands, Ideas, Seasons, Users}
   alias Holidays.Ideas.Idea
+  alias Holidays.Seasons.Season
 
   def index(conn, _params) do
     ideas = Ideas.list_ideas()
@@ -70,6 +71,9 @@ defmodule HolidaysWeb.IdeaController do
 
   def get_seasons() do
     Seasons.list_seasons()
-    |> Enum.map(&{"#{&1.name} - #{&1.description}", &1.id})
+    |> Enum.map(fn
+      %Season{id: id, description: nil, name: name} -> {name, id}
+      %Season{id: id, description: description, name: name} -> {"#{name} - #{description}", id}
+    end)  
   end
 end
