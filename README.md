@@ -29,9 +29,10 @@ Visit [http://localhost:4000](http://localhost:4000)
 ## Setting up Heroku
 Create a new app on Heroku
 * under addons, add a postgres DB
-* under settings, add the following buildpacks
+* under settings, add the following buildpacks (make sure they are in this order)
 ** https://github.com/HashNuke/heroku-buildpack-elixir.git
 ** https://github.com/gjaldon/heroku-buildpack-phoenix-static.git
+* under settings, add a SECRET_KEY_BASE to Config vars
 
 
 ## Deploying to Heroku
