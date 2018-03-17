@@ -18,24 +18,6 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :band_id, class: "control-label" %>
-    <%= select f, :band_id, @bands, class: "form-control"%>
-    <%= error_tag f, :band_id %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :season_id, class: "control-label" %>
-    <%= select f, :sesason_id, @seasons, class: "form-control"%>
-    <%= error_tag f, :season_id %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :suggester_id, class: "control-label" %>
-    <%= select f, :suggester_id, @users, class: "form-control"%>
-    <%= error_tag f, :suggester_id %>
-  </div>
-
-  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

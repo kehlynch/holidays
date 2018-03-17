@@ -1,0 +1,29 @@
+<div class="page-heading-container">
+  <h2 class="page-heading">Seasons</h2>
+  <%= link "New Season", to: season_path(@conn, :new), class: "btn btn-primary" %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for season <- @seasons do %>
+    <tr>
+      <td><%= season.name %></td>
+      <td><%= season.description %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: season_path(@conn, :show, season), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: season_path(@conn, :edit, season), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: season_path(@conn, :delete, season), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

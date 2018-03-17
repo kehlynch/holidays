@@ -6,6 +6,7 @@ defmodule Holidays.Bands do
 
   def list_bands do
     Repo.all(Band)
+    |> Enum.sort_by(&(&1.name))
   end
 
   def get_band!(id), do: Repo.get!(Band, id)

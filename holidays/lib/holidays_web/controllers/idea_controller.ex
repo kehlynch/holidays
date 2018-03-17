@@ -1,7 +1,7 @@
 defmodule HolidaysWeb.IdeaController do
   use HolidaysWeb, :controller
 
-  alias Holidays.{Bands, Ideas}
+  alias Holidays.{Bands, Ideas, Seasons, Users}
   alias Holidays.Ideas.Idea
 
   def index(conn, _params) do
@@ -11,7 +11,7 @@ defmodule HolidaysWeb.IdeaController do
 
   def new(conn, _params) do
     changeset = Ideas.change_idea(%Idea{})
-    render(conn, "new.html", changeset: changeset, bands: get_bands())
+    render(conn, "new.html", changeset: changeset, bands: get_bands(), seasons: get_seasons(), users: get_users())
   end
 
   def create(conn, %{"idea" => idea_params}) do
@@ -21,7 +21,7 @@ defmodule HolidaysWeb.IdeaController do
         |> put_flash(:info, "Idea created successfully.")
         |> redirect(to: idea_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, bands: get_bands())
+        render(conn, "new.html", changeset: changeset, bands: get_bands(), seasons: get_seasons(), users: get_users())
     end
   end
 
@@ -33,7 +33,7 @@ defmodule HolidaysWeb.IdeaController do
   def edit(conn, %{"id" => id}) do
     idea = Ideas.get_idea!(id)
     changeset = Ideas.change_idea(idea)
-    render(conn, "edit.html", idea: idea, changeset: changeset, bands: get_bands())
+    render(conn, "edit.html", idea: idea, changeset: changeset, bands: get_bands(), seasons: get_seasons(), users: get_users())
   end
 
   def update(conn, %{"id" => id, "idea" => idea_params}) do
@@ -45,7 +45,7 @@ defmodule HolidaysWeb.IdeaController do
         |> put_flash(:info, "Idea updated successfully.")
         |> redirect(to: idea_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", idea: idea, changeset: changeset, bands: get_bands())
+        render(conn, "edit.html", idea: idea, changeset: changeset, bands: get_bands(), seasons: get_seasons(), users: get_users())
     end
   end
 
@@ -60,6 +60,16 @@ defmodule HolidaysWeb.IdeaController do
 
   def get_bands() do
     Bands.list_bands()
+    |> Enum.map(&{"#{&1.name} - #{&1.description}", &1.id})
+  end
+
+  def get_users() do
+    Users.list_users()
+    |> Enum.map(&{&1.name, &1.id})
+  end
+
+  def get_seasons() do
+    Seasons.list_seasons()
     |> Enum.map(&{"#{&1.name} - #{&1.description}", &1.id})
   end
 end

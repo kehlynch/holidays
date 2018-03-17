@@ -16,4 +16,17 @@ defmodule Holidays.Factory do
       band: build(:band)
     }
   end
+
+  def season_factory do
+    %Holidays.Seasons.Season{
+      name: sequence(:name, &"season #{&1}"),
+      description: sequence(:description, &"season description #{&1}"),
+    }
+  end
+  
+  def user_factory do
+    %Holidays.Users.User{
+      name: sequence(:name, &"user #{&1}"),
+    }
+  end
 end

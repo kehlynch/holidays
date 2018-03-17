@@ -22,6 +22,8 @@
           <ul class="nav nav-pills">
             <li><%= link "Holiday ideas", to: idea_path(@conn, :index) %></li>
             <li><%= link "Bands", to: band_path(@conn, :index) %></li>
+            <li><%= link "Seasons", to: season_path(@conn, :index) %></li>
+            <li><%= link "Users", to: user_path(@conn, :index) %></li>
           </ul>
         </nav>
       </header>
