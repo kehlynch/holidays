@@ -14,6 +14,6 @@ defmodule Holidays.Seasons.Season do
   def changeset(season, attrs) do
     season
     |> cast(attrs, [:name, :description])
-    |> validate_required([:name, :description])
+    |> validate_required([:name])
   end
 end
