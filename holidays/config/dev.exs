@@ -41,6 +41,9 @@ config :holidays, HolidaysWeb.Endpoint,
     ]
   ]
 
+# set instance name
+config :holidays, :settings, app_name: System.get_env("APP_NAME")
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
