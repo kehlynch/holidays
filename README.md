@@ -32,7 +32,9 @@ Create a new app on Heroku
 * under settings, add the following buildpacks (make sure they are in this order)
   * https://github.com/HashNuke/heroku-buildpack-elixir.git
   * https://github.com/gjaldon/heroku-buildpack-phoenix-static.git
-* under settings, add a SECRET_KEY_BASE to Config vars
+* under settings, add the followig config variables
+  * SECRET_KEY_BASE - set this to a unique 64 character string - it is used to sign cookies
+  * APP_NAME - set this to show an instance name on the CMS - defaults to "Holiday Planning Tool"
 
 
 ## Deploying to Heroku
